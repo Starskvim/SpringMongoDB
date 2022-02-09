@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8">
+<title>Test</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+
+		<tr>
+			<th>
+				<form th:action="@{/createAndAdd}"
+					  method="get" class="form-horizontal">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-watcher"></i></span>
+						<button type="submit" class="btn btn-primary myButtonHead">createAndAdd
+						</button>
+					</div>
+				</form>
+			</th>
+<!--			<th>-->
+<!--				<form th:action="@{/models/deserialization}"-->
+<!--					  method="get" class="form-horizontal">-->
+<!--					<div style="margin-bottom: 14px; width: 25%" class="input-group">-->
+<!--						<span class="input-group-addon"><i class="glyphicon glyphicon-watcher"></i></span>-->
+<!--						<button onclick="test()" type="submit" class="btn btn-primary myButtonHead">Deserialization-->
+<!--						</button>-->
+<!--					</div>-->
+<!--				</form>-->
+<!--			</th>-->
+		</tr>
+	</table>
+</div>
+
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+
+		<span th:text="${'Всего на странице ' + list.size()}"/>
+		<br>
+
+		<tr>
+			<th>id</th>
+			<th>text</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="doc : ${list}">
+
+			<td th:text="${doc.id}"/>
+			<td th:text="${doc.text}"/>
+
+
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="container">
+
+	<form method="POST" enctype="multipart/form-data" th:action="@{/upload}">
+		<table id="serialization" class="table table-hover ">
+			<tr>
+
+				<input class="btn" type="file" name="file">
+
+			</tr>
+			<tr>
+
+				<input class="btn" type="submit" value="Upload"> Upload
+			</tr>
+		</table>
+	</form>
+
+</div>
+
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+
+		<span th:text="${'Всего моделей на странице ' + models.size()}"/>
+		<br>
+
+		<tr>
+			<th>Preview</th>
+			<!--            <th>ID</th>-->
+			<th>Category</th>
+			<th>modelName</th>
+		</tr>
+
+		</thead>
+		<tbody>
+		<tr th:each="model : ${models}">
+			<th>
+				<img style="height: 250px; max-width: 450px;" th:src="'data:image/png;base64,' + ${model.getModelOTHList().get(0).getPreviewOth}" alt="None"
+					 class="imagePreveiw"/>
+			</th>
+			<td th:text="${model.modelCategory}"/>
+			<td th:text="${model.modelName}"/>
+
+		</tr>
+		</tbody>
+
+	</table>
+
+
+</div>
+
+</body>
+</html>
